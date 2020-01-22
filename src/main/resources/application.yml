@@ -1,0 +1,39 @@
+#durid 数据源配置 特别注意 常规的4个字符串连接的名字，必须符合DruidDataSource的命名规则,注意是set方法，不是字段名称，比如url
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    #####自定义的配置信息，即SpringBoot中没有提供的配置，是我们自己额外提供的动态配置信息###########
+    druid:
+      url: jdbc:mysql://localhost:3306/excellent_course?serverTimezone=UTC&useUnicode=true&useSSL=false&characterEncoding=utf8
+      username: orypeu
+      password: orypeu
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      # 初始化大小，最小，最大
+      initial-size: 5
+      min-idle: 2
+      max-active: 20
+      # 配置获取连接等待超时的时间
+      max-wait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 60000
+      # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      filters: stat,wall
+      # 通过connectProperties属性来打开mergeSql功能（参数不同的sql合并统计）、慢SQL记录（执行时间长的sql）
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+
+#############################SpringBoot内置的配置信息，它会自动读取注入
+#mybatisplus配置
+mybatis-plus:
+  mapper-locations: mapper/*.xml
+  configuration:
+    use-column-label: true
+    auto-mapping-behavior: full
+    ap-underscore-to-camel-case: true
+#配置SpringBoot默认的日志环境，开启打印SQL语句的Debug模式，语法：logging.level.<mapper所在包名>=debug
+logging:
+  level:
+    com.orypeu.excellent_course.mapper: debug
+
+#Tomcat端口号 默认是8080端口
+server:
+  port: 8080
