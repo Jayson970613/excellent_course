@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('课程管理')"/>
+</head>
+<body class="gray-bg">
+<!-- 导航栏工具条 -->
+<div class="ibox-title">
+    <div class="btn-group" role="group">
+        <button type="button" class="btn btn-primary" th:onclick="myAdmin()">精品课程网站后台管理首页
+            <span class="caret"></span>
+        </button>
+    </div>
+    <h2>后台管理首页</h2>
+</div>
+
+<div class="container-div">
+    <div class="btn-group-sm" id="toolbar" role="group">
+        <a class="btn btn-success" onclick="$.table.showColumn('name')">
+            <i class="fa fa-check"></i> 显示课程名称
+        </a>
+        <a class="btn btn-danger" onclick="$.table.hideColumn('name')">
+            <i class="fa fa-close"></i> 隐藏课程名称
+        </a>
+        <a class="btn btn-info" onclick="add()">
+            <i class="fa fa-plus"></i> 新增
+        </a>
+        <a class="btn btn-warning" onclick="$.table.refresh()">
+            <i class="fa fa-refresh"></i> 刷新
+        </a>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table"></table>
+        </div>
+    </div>
+</div>
+<div th:include="include :: footer"></div>
+<script th:inline="javascript">
+    var prefix = "/course";
+
+    $('#bootstrap-table').bootstrapTable({
+        url: prefix + "/courseData",
+        showSearch: false,
+        showRefresh: false,
+        showToggle: false,
+        showColumns: false,
+        columns: [
+            {
+                field: 'id',
+                title: '课程ID'
+            },
+            {
+                field: 'name',
+                title: '课程名称'
+            },
+            {
+                field: 'year',
+                title: '所属年份'
+            },
+            {
+                field: 'principal',
+                title: '负责人'
+            },
+            {
+                field: 'college',
+                title: '所属学院'
+            },
+            {
+                title: '操作',
+                align: 'center',
+                formatter: function (value, row, index) {
+                    var actions = [];
+                    actions.push('<a class="btn btn-success btn-xs" href="/course/edit?id='
+                        + row.id + '"><i class="fa fa-edit"></i>编辑</a> ');
+                    actions.push('<a class="btn btn-danger btn-xs" onclick="deleteCourse(this)" value="'
+                        + row.id + '"><i class="fa fa-remove"></i>删除</a>');
+                    return actions.join('');
+                }
+            }]
+    });
+
+    function add() {
+        window.location.href = "/course/add";
+    }
+</script>
+<script th:inline="javascript">
+    function deleteCourse(object) {
+        var message = "是否确认删除课程?";
+        var result = confirm(message);
+        var id = object.getAttribute("value");
+        if (result == true) {
+            var course = {
+                courseId: id,
+            };
+            $.ajax({
+                type: "POST",
+                dateType: "json",
+                contentType: 'application/json',
+                url: "/course/delete",
+                data: JSON.stringify(course),
+                success: function (data) {
+                    alert("删除课程成功！");
+                    window.location.href = "/course/list";
+                },
+                error: function (e) {
+                    alert("出错：" + e);
+                }
+            });
+        }
+    }
+
+    function myAdmin() {
+        window.location.href = "/course/list";
+    }
+</script>
+</body>
+</html>

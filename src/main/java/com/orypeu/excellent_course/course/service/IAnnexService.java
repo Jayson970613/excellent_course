@@ -2,6 +2,9 @@ package com.orypeu.excellent_course.course.service;
 
 import com.orypeu.excellent_course.course.entity.Annex;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IAnnexService extends IService<Annex> {
 
+	List<Annex> save(MultipartFile[] files, String courseId);
+	List<Annex> getAllAnnexByCourseId(String courseId);
+
+	boolean delete(String annexId);
 }

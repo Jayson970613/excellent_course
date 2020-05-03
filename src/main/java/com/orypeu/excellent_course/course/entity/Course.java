@@ -1,10 +1,11 @@
 package com.orypeu.excellent_course.course.entity;
 
-import java.time.LocalDateTime;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.Year;
 
 /**
  * <p>
@@ -25,12 +26,12 @@ public class Course implements Serializable {
 
     private String name;
 
-    private LocalDateTime year;
+    private Year year;
 
     /**
-     * 负责人id（教师id）
+     * 负责人
      */
-    private String principalId;
+    private String principal;
 
     private String college;
 

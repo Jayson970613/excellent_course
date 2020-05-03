@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('新增课程')"/>
+</head>
+<body class="white-bg">
+<div class="ibox-title">
+    <div class="btn-group" role="group">
+        <button type="button" class="btn btn-primary" th:onclick="myAdmin()">精品课程网站后台管理首页
+            <span class="caret"></span>
+        </button>
+    </div>
+    <h2>新增课程</h2>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-role-add">
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">课程名称：</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="text" name="courseName" id="name" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">所属年份：</label>
+            <div class="input-group date col-sm-9">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input type="text" class="form-control" id="year" placeholder="yyyy">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">负责人：</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="text" name="principal" id="principal" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">所属学院：</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="text" name="college" id="college" required>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="ibox text-center">
+    <div class="ibox-content float-e-margins">
+        <button type="button" class="btn btn-primary" th:onclick="'javascript:submit()'">确认</button>
+        <button type="button" class="btn btn-default"><a href="javascript:history.go(-1);">取消</a></button>
+    </div>
+</div>
+<script src="/laydate/laydate.js"></script>
+<script>
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#year' //指定元素
+        , type: 'year'
+    });
+</script>
+<script th:src="@{/jquery/jquery.js}"></script>
+<script>
+    function submit() {
+        var name = $("#name").val();
+        var year = $("#year").val();
+        var principal = $("#principal").val();
+        var college = $("#college").val();
+        var course = {
+            name: name,
+            year: year,
+            principal: principal,
+            college: college
+        };
+        $.ajax({
+            type: "POST",
+            dateType: "json",
+            contentType: 'application/json',
+            url: "/course/insert",
+            data: JSON.stringify(course),
+            success: function (data) {
+                alert("新增课程成功");
+                window.location.href = "/course/list";
+            },
+            error: function (e) {
+                alert("出错：" + e);
+            }
+        });
+    }
+    function myAdmin() {
+        window.location.href = "/course/list";
+    }
+</script>
+</body>
+</html>

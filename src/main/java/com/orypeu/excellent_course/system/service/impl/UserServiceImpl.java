@@ -1,5 +1,6 @@
 package com.orypeu.excellent_course.system.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.orypeu.excellent_course.system.entity.User;
 import com.orypeu.excellent_course.system.mapper.UserMapper;
 import com.orypeu.excellent_course.system.service.IUserService;
@@ -26,48 +27,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     private UserMapper userMapper;
 
     @Override
-    public User selectById(Long id) {
-        return userMapper.selectById(id);
-    }
-
-    @Override
-    public List<User> list(Map<String, Object> map) {
-        return null;
-    }
-
-    @Override
-    public int count(Map<String, Object> map) {
-        return 0;
-    }
-
-    @Override
-    public int update(User user) {
-        return 0;
-    }
-
-    @Override
-    public int remove(Long userId) {
-        return 0;
-    }
-
-    @Override
-    public int batchRemove(Long[] userIds) {
-        return 0;
-    }
-
-    @Override
-    public Long[] listAllDept() {
-        return new Long[0];
-    }
-
-    @Override
-    public User selectUserByLoginName(String userName) {
-        return null;
-    }
-
-    @Override
     public boolean login(User user) {
-        User userInDB = userMapper.selectById(user.getUserId());
+        User userInDB = userMapper.selectOne(new QueryWrapper<User>().eq("username", user.getUsername()));
+        System.out.println("数据库查出的user: " + userInDB);
         if (userInDB != null){
             if (userInDB.getPassword().equals(user.getPassword())){
                 return true;
@@ -75,4 +37,5 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
         return false;
     }
+
 }

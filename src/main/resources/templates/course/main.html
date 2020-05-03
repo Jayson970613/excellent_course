@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('课程详细内容')"/>
+</head>
+<body class="white-bg">
+<!-- 主面板 -->
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h1 class="panel-title" th:text="${course.name} + '精品课程'"></h1>
+    </div>
+    <div class="panel-body">
+        <!-- 上方下拉菜单 -->
+        <div class="text-center">
+            <!-- 按钮组 -->
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-primary" th:onclick="myIndex()">首页</a>
+                </button>
+            </div>
+            <th:block th:each="parent,parentStat : ${parentList}">
+                <div class="btn-group dropdown" role="group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" th:text="${parent.name}"
+                            th:value="${parentStat.index}" th:onclick="showParent([[${parentStat.index}]])">
+                    </button>
+                    <ul class="dropdown-menu">
+                        <th:block th:each="section,sectionStat : ${sectionList.get(parentStat.index)}">
+                            <li th:value="${sectionStat.index}">
+                                <a class="dropdown-item" th:onclick="showChildren([[${parentStat.index}]], [[${sectionStat.index}]])"
+                                   th:text="${section.name}"></a>
+                            </li>
+                        </th:block>
+                    </ul>
+                </div>
+            </th:block>
+            <!-- 课程附件 -->
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-primary" th:onclick="annex()">教学课件</a>
+                </button>
+            </div>
+        </div>
+
+        <!-- 分割线 -->
+        <div class="clear col-md-12 wrapper">
+            <br>
+            <hr class="style-two">
+            <br><br>
+        </div>
+
+        <!-- 中间面板div -->
+        <div class="text-center col-md-12">
+            <!-- 中间左侧导航面板 -->
+            <div class="col-md-4" id="left" th:name="left">
+                <ul class="list-group">
+                    <th:block th:each="children,childrenStat : ${sectionList.get(0)}">
+                        <li class="list-group-item">
+                            <a th:onclick="showSection(0, [[${childrenStat.index}]])"
+                               th:text="${children.name}"></a>
+                        </li>
+                    </th:block>
+                </ul>
+            </div>
+
+            <!-- 中间右侧内容面板 -->
+            <div class="col-md-8" id="content" th:name="content">
+                <th:block th:utext="${parentList.get(0).data}"></th:block>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:include="include :: footer"/>
+<script th:inline="javascript">
+    /* 点击左边导航改变中间面板 */
+    function showSection(parentIndex, index) {
+        var data = [[${sectionList}]];
+        $("#content").empty();
+        var div = document.getElementById("content");
+        var html = "<th:block th:utext=" + data[parentIndex][index].data + "></th:block>";
+        div.innerHTML = html;
+    }
+</script>
+<script th:inline="javascript">
+    /* 点击父母下拉列表改变做左边面板和中间面板 */
+    function showChildren(parentIndex, index) {
+        var data = [[${sectionList}]];
+        $("#left").empty();
+        var left = document.getElementById("left");
+        var html = "<ul class=\"list-group\">";
+        for (var i = 0; i < data[parentIndex].length; i++) {
+            html = html + "<li class=\"list-group-item\">\n" +
+                "<a onclick=\"showSection(" + parentIndex + ", " + i +
+                ")\">" + data[parentIndex][i].name + "</a>\n" +
+                "</li>";
+        }
+        html = html + "</ul>";
+        left.innerHTML = html;
+        $("#content").empty();
+        var div = document.getElementById("content");
+        var html2 = "<th:block th:utext=" + data[parentIndex][index].data + "></th:block>";
+        div.innerHTML = html2;
+    }
+</script>
+<script th:inline="javascript">
+    /* 点击父母栏目按钮改变左边导航和中间面板 */
+    function showParent(index) {
+        var data = [[${parentList}]];
+        var children = [[${sectionList}]];
+        $("#left").empty();
+        var left = document.getElementById("left");
+        var html = "<ul class=\"list-group\">";
+        for (var i = 0; i < children[index].length; i++) {
+            html = html + "<li class=\"list-group-item\">\n" +
+                "<a onclick=\"showSection(" + index + ", " + i +
+                ")\">" + children[index][i].name + "</a>\n" +
+                "</li>";
+        }
+        html = html + "</ul>";
+        left.innerHTML = html;
+        $("#content").empty();
+        var div = document.getElementById("content");
+        var html2 = "<th:block th:utext=" + data[index].data + "></th:block>";
+        div.innerHTML = html2;
+    }
+</script>
+<script th:inline="javascript">
+    function annex() {
+        var courseId = [[${course.id}]];
+        var annexList = [[${annexList}]];
+        var html = "<h2>课程附件</h2><ul class=\"list-group\">";
+        for (var i = 0; i < annexList.length; i++) {
+            html = html + "<li class=\"list-group-item\">" + annexList[i].title + "<img src=\"/img/pdf.gif\" " +
+                "alt=\"图片显示错误\" class=\"img-rounded\">"
+                + "<a id=\"" + annexList[i].name +
+                "\" target=\"_blank\" href=\"" + annexList[i].url +
+                "\">" + annexList[i].title + "</a></li>";
+        }
+        $("#left").empty();
+        $("#content").empty();
+        var div = document.getElementById("content");
+        div.innerHTML = html;
+    }
+    function myIndex() {
+        window.location.href = "/index";
+    }
+</script>
+</body>
+</html>

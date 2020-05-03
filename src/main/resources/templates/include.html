@@ -1,0 +1,145 @@
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<!-- 通用CSS -->
+<head th:fragment=header(title)>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title th:text="${title}"></title>
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/font-awesome/font-awesome.css}" rel="stylesheet"/>
+    <!-- 表格的树形网格 -->
+    <link th:href="@{/ajax/jquery-treegrid/css/jquery.treegrid.css}" rel="stylesheet"/>
+    <!-- bootstrap-table 表格插件样式 -->
+    <link th:href="@{/ajax/bootstrap-table/bootstrap-table.min.css}" rel="stylesheet"/>
+    <link th:href="@{/animate/animate.css}" rel="stylesheet"/>
+    <link th:href="@{/app/style.css}" rel="stylesheet"/>
+    <link th:href="@{/ruoyi/css/ry-ui.css}" rel="stylesheet"/>
+    <link th:href="@{/css/footer.css}" rel="stylesheet"/>
+</head>
+
+<!-- 通用JS -->
+<div th:fragment="footer">
+    <script th:src="@{/jquery/jquery.js}"></script>
+    <!-- 表格的树形网格 -->
+    <script th:src="@{/ajax/jquery-treegrid/js/jquery.treegrid.js}"></script>
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <!-- bootstrap-table 表格插件 -->
+    <script th:src="@{/ajax/bootstrap-table/bootstrap-table.min.js}"></script>
+    <script th:src="@{/ajax/bootstrap-table/locale/bootstrap-table-zh-CN.min.js}"></script>
+    <script th:src="@{/ajax/bootstrap-table/extensions/mobile/bootstrap-table-mobile.js}"></script>
+    <script th:src="@{/ajax/bootstrap-table/extensions/toolbar/bootstrap-table-toolbar.min.js}"></script>
+    <script th:src="@{/ajax/bootstrap-table/extensions/columns/bootstrap-table-fixed-columns.js}"></script>
+    <!-- 表格的树形网格 -->
+    <script th:src="@{/ajax/bootstrap-table/extensions/treegrid/bootstrap-table-treegrid.min.js}"></script>
+    <!-- jquery-validate 表单验证插件 -->
+    <script th:src="@{/ajax/validate/jquery.validate.min.js}"></script>
+    <script th:src="@{/ajax/validate/messages_zh.min.js}"></script>
+    <script th:src="@{/ajax/validate/jquery.validate.extend.js}"></script>
+    <!-- jquery-validate 表单树插件 -->
+    <script th:src="@{/ajax/bootstrap-treetable/bootstrap-treetable.js}"></script>
+    <!-- jquery-export 表格导出插件 -->
+    <script th:src="@{/ajax/bootstrap-table/extensions/export/bootstrap-table-export.js}"></script>
+    <script th:src="@{/ajax/bootstrap-table/extensions/export/tableExport.js}"></script>
+    <!-- 遮罩层 -->
+    <script th:src="@{/ajax/blockUI/jquery.blockUI.js}"></script>
+    <script th:src="@{/ajax/iCheck/icheck.min.js}"></script>
+    <script th:src="@{/ajax/layer/layer.min.js}"></script>
+    <script th:src="@{/ajax/layui/layui.js}"></script>
+    <!--<script th:src="@{/ruoyi/js/common.js?v=4.1.0}"></script>
+    <script th:src="@{/ruoyi/js/ry-ui.js?v=4.1.0}"></script>-->
+    <script th:inline="javascript"> var ctx = [[@{/}]]; </script>
+</div>
+
+<!-- ztree树插件 -->
+<div th:fragment="ztree-css">
+    <link th:href="@{/ajax/jquery-ztree/css/metro/zTreeStyle.css}" rel="stylesheet"/>
+</div>
+<div th:fragment="ztree-js">
+    <script th:src="@{/ajax/jquery-ztree/js/jquery.ztree.all-3.5.js}"></script>
+</div>
+
+<!-- select2下拉框插件 -->
+<div th:fragment="select2-css">
+    <link th:href="@{/ajax/select2/select2.min.css}" rel="stylesheet"/>
+    <link th:href="@{/ajax/select2/select2-bootstrap.css}" rel="stylesheet"/>
+</div>
+<div th:fragment="select2-js">
+    <script th:src="@{/ajax/select2/select2.min.js}"></script>
+</div>
+
+<!-- bootstrap-select下拉框插件 -->
+<div th:fragment="bootstrap-select-css">
+    <link th:href="@{/ajax/bootstrap-select/bootstrap-select.css}" rel="stylesheet"/>
+</div>
+<div th:fragment="bootstrap-select-js">
+    <script th:src="@{/ajax/bootstrap-select/bootstrap-select.js}"></script>
+</div>
+
+<!-- datetimepicker日期和时间插件 -->
+<div th:fragment="datetimepicker-css">
+    <link th:href="@{/ajax/datapicker/bootstrap-datetimepicker.min.css}" rel="stylesheet"/>
+</div>
+<div th:fragment="datetimepicker-js">
+    <script th:src="@{/ajax/datapicker/bootstrap-datetimepicker.min.js}"></script>
+</div>
+
+<!-- ui布局插件 -->
+<div th:fragment="layout-latest-css">
+    <link th:href="@{/ajax/jquery-layout/jquery.layout-latest.css}" rel="stylesheet"/>
+</div>
+<div th:fragment="layout-latest-js">
+    <script th:src="@{/ajax/jquery-layout/jquery.layout-latest.js}"></script>
+</div>
+
+<!-- summernote富文本编辑器插件 -->
+<div th:fragment="summernote-css">
+    <link th:href="@{/ajax/summernote/summernote.css}" rel="stylesheet"/>
+    <link th:href="@{/ajax/summernote/summernote-bs3.css}" rel="stylesheet"/>
+</div>
+<div th:fragment="summernote-js">
+    <script th:src="@{/ajax/summernote/summernote.min.js}"></script>
+    <script th:src="@{/ajax/summernote/summernote-zh-CN.js}"></script>
+</div>
+
+<!-- cropbox图像裁剪插件 -->
+<div th:fragment="cropbox-css">
+    <link th:href="@{/ajax/cropbox/cropbox.css}" rel="stylesheet"/>
+</div>
+<div th:fragment="cropbox-js">
+    <script th:src="@{/ajax/cropbox/cropbox.js}"></script>
+</div>
+
+<!-- fileinput文件上传插件 -->
+<div th:fragment="bootstrap-fileinput-css">
+    <link th:href="@{/ajax/bootstrap-fileinput/fileinput.min.css}" rel="stylesheet"/>
+</div>
+<div th:fragment="bootstrap-fileinput-js">
+    <script th:src="@{/ajax/bootstrap-fileinput/fileinput.min.js}"></script>
+</div>
+
+<!-- duallistbox双列表框插件 -->
+<div th:fragment="bootstrap-duallistbox-css">
+    <link th:href="@{/ajax/duallistbox/bootstrap-duallistbox.min.css}" rel="stylesheet"/>
+</div>
+<div th:fragment="bootstrap-duallistbox-js">
+    <script th:src="@{/ajax/duallistbox/bootstrap-duallistbox.min.js}"></script>
+</div>
+
+<!-- suggest搜索自动补全 -->
+<div th:fragment="bootstrap-suggest-js">
+    <script th:src="@{/ajax/suggest/bootstrap-suggest.min.js}"></script>
+</div>
+
+<!-- typeahead搜索自动补全 -->
+<div th:fragment="bootstrap-typeahead-js">
+    <script th:src="@{/ajax/typeahead/bootstrap3-typeahead.min.js}"></script>
+</div>
+
+<!-- jquery.steps表单向导插件 -->
+<div th:fragment="jquery-steps-css">
+    <link th:href="@{/ajax/staps/jquery.steps.css}" rel="stylesheet"/>
+</div>
+<div th:fragment="jquery-steps-js">
+    <script th:src="@{/ajax/staps/jquery.steps.min.js}"></script>
+</div>

@@ -4,7 +4,7 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     #####自定义的配置信息，即SpringBoot中没有提供的配置，是我们自己额外提供的动态配置信息###########
     druid:
-      url: jdbc:mysql://localhost:3306/excellent_course?serverTimezone=UTC&useUnicode=true&useSSL=false&characterEncoding=utf8
+      url: jdbc:mysql://localhost:3306/excellent_course?serverTimezone=UTC&useUnicode=true&useSSL=false&characterEncoding=utf8&allowPublicKeyRetrieval=true
       username: orypeu
       password: orypeu
       driver-class-name: com.mysql.cj.jdbc.Driver
@@ -21,10 +21,17 @@ spring:
       # 通过connectProperties属性来打开mergeSql功能（参数不同的sql合并统计）、慢SQL记录（执行时间长的sql）
       connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
 
+  servlet:
+    multipart:
+      # maxFileSize 单个数据大小
+      maxFileSize : 20MB
+      # maxRequestSize 是总数据大小
+      maxRequestSize : 200MB
+
 #############################SpringBoot内置的配置信息，它会自动读取注入
 #mybatisplus配置
 mybatis-plus:
-  mapper-locations: mapper/*.xml
+  mapper-locations: classpath*:mapper/**/*.xml
   configuration:
     use-column-label: true
     auto-mapping-behavior: full
@@ -37,3 +44,10 @@ logging:
 #Tomcat端口号 默认是8080端口
 server:
   port: 8080
+
+ftp:
+  server: 106.15.177.254
+  port: 21
+  username: arilia
+  password: 8662076qq
+  basePath: /data/wwwroot/images/

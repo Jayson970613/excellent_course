@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('新增课程栏目')"/>
+    <th:block th:include="include :: summernote-css"/>
+</head>
+<body class="white-bg">
+<div class="ibox-title">
+    <div class="btn-group" role="group">
+        <button type="button" class="btn btn-primary" th:onclick="myAdmin()">精品课程网站后台管理首页
+            <span class="caret"></span>
+        </button>
+    </div>
+    <h2>新增课程栏目</h2>
+</div>
+<div class="col-md-12 wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-role-add">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">栏目名称：</label>
+            <div class="col-sm-9">
+                <input type="text" name="name" id="name" class="form-control" placeholder="请输入栏目名称">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">所属课程：</label>
+            <div class="col-sm-9">
+                <input th:value="${course.name}" type="text" name="course" id="course" class="form-control"
+                       readonly="readonly">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">父级栏目：</label>
+            <div class="col-sm-9">
+                <select class="form-control" name="parentId" id="parentId">
+                    <option value="null" selected>课程顶级栏目</option>
+                    <option th:each="section : ${parentList}" th:text="${section.name}"
+                            th:value="${section.id} " th:name="${section.name}">
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">栏目内容：</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">请输入栏目描述或内容</p>
+            </div>
+        </div>
+    </form>
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content no-padding">
+                <div class="summernote" id="data">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 text-center">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary" th:onclick="'javascript:submit()'">提交</button>
+                <button class="btn btn-danger" type="button"><a href="javascript:history.go(-1);">取消</a></button>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/ajax/popper/popper.js}"></script>
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: summernote-js"/>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        $('#data').summernote({
+            lang: 'zh-CN',
+            height: 300
+        });
+    });
+
+    function submit() {
+        var name = $("#name").val();
+        var courseId = [[${course.id}]];
+        var parentId = $("#parentId").val();
+        var data = $('#data').summernote('code');
+        var course = {
+            name: name,
+            courseId: courseId,
+            parentId: parentId,
+            data: data
+        };
+        $.ajax({
+            type: "POST",
+            dateType: "json",
+            contentType: 'application/json',
+            url: "/section/insert",
+            data: JSON.stringify(course),
+            success: function (data) {
+                alert("成功");
+                window.location.href = "/course/edit?id=" + courseId;
+            },
+            error: function (e) {
+                alert("出错：" + e);
+            }
+        });
+    }
+    function myAdmin() {
+        window.location.href = "/course/list";
+    }
+</script>
+</body>
+</html>

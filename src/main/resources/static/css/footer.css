@@ -1,0 +1,12 @@
+.foot {
+    position: fixed;
+    text-align: center;
+    color: #4F4F4F;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    bottom: 0;
+    margin-bottom: 0;
+    font-size: 15px;
+    background-color: #B3D9D9;
+}

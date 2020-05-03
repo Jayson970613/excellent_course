@@ -16,21 +16,5 @@ import java.util.Map;
  */
 public interface IUserService extends IService<User> {
 
-    User selectById(Long id);
-    List<User> list(Map<String, Object> map);
-    int count(Map<String, Object> map);
-    boolean save(User user);
-    int update(User user);
-    int remove(Long userId);
-    int batchRemove(Long[] userIds);
-    Long[] listAllDept();
-    /**
-     * 通过用户名查询用户
-     *
-     * @param userName 用户名
-     * @return 用户对象信息
-     */
-    public User selectUserByLoginName(String userName);
-
     boolean login(User user);
 }

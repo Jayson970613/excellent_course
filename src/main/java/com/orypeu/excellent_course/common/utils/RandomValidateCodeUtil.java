@@ -12,13 +12,10 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 /**
- * @ClassName RandomValidateCodeUtil
- * @Description TODO
- * @Author LJH
- * @Date 2020/1/20 16:52
- * @Version 1.0
+ * @author yangzc
  */
 public class RandomValidateCodeUtil {
+
 
     public static final String RANDOMCODEKEY = "RANDOMVALIDATECODEKEY";//放到session中的key
     private String randString = "0123456789";//随机产生只有数字的字符串 private String
